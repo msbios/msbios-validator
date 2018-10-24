@@ -15,18 +15,6 @@ use PHPUnit\Framework\TestCase;
  */
 class ModuleTest extends TestCase
 {
-    /** @var  Module */
-    protected $instance;
-
-    /**
-     * @constructor
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->instance = new Module;
-    }
-
     /**
      *
      */
@@ -38,7 +26,6 @@ class ModuleTest extends TestCase
             ->willReturn([]);
 
         $this->assertInternalType('array', $mock->getConfig());
-
     }
 
     /**
