@@ -6,6 +6,7 @@
 namespace MSBiosTest\Validator;
 
 use MSBios\Validator\ConfigProvider;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,24 +15,17 @@ use PHPUnit\Framework\TestCase;
  */
 class ConfigProviderTest extends TestCase
 {
-    /** @var  ConfigProvider */
-    protected $instance;
-
-    /**
-     * @constructor
-     */
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->instance = new ConfigProvider;
-    }
-
     /**
      *
      */
     public function testCallInvoke()
     {
-        $this->assertInternalType('array', ($this->instance)());
+        /** @var \PHPUnit_Framework_MockObject_MockObject|MockObject $mock */
+        $mock = $this->createMock(ConfigProvider::class);
+        $mock->method('__invoke')
+            ->willReturn([]);
+
+        $this->assertInternalType('array', $mock->__invoke());
     }
 
     /**
@@ -39,6 +33,11 @@ class ConfigProviderTest extends TestCase
      */
     public function testGetDependencyConfig()
     {
-        $this->assertInternalType('array', $this->instance->getDependencyConfig());
+        /** @var \PHPUnit_Framework_MockObject_MockObject|MockObject $mock */
+        $mock = $this->createMock(ConfigProvider::class);
+        $mock->method('getDependencyConfig')
+            ->willReturn([]);
+
+        $this->assertInternalType('array', $mock->getDependencyConfig());
     }
 }
