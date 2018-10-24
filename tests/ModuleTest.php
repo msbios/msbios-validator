@@ -6,7 +6,6 @@
 namespace MSBiosTest\Validator;
 
 use MSBios\Validator\Module;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,17 +14,24 @@ use PHPUnit\Framework\TestCase;
  */
 class ModuleTest extends TestCase
 {
+    /** @var  Module */
+    protected $instance;
+
+    /**
+     * @constructor
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->instance = new Module;
+    }
+
     /**
      *
      */
     public function testGetConfig()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|MockObject $mock */
-        $mock = $this->createMock(Module::class);
-        $mock->method('getConfig')
-            ->willReturn([]);
-
-        $this->assertInternalType('array', $mock->getConfig());
+        $this->assertInternalType('array', $this->instance->getConfig());
     }
 
     /**
@@ -33,11 +39,6 @@ class ModuleTest extends TestCase
      */
     public function testGetAutoloaderConfig()
     {
-        /** @var \PHPUnit_Framework_MockObject_MockObject|MockObject $mock */
-        $mock = $this->createMock(Module::class);
-        $mock->method('getAutoloaderConfig')
-            ->willReturn([]);
-
-        $this->assertInternalType('array', $mock->getAutoloaderConfig());
+        $this->assertInternalType('array', $this->instance->getAutoloaderConfig());
     }
 }
