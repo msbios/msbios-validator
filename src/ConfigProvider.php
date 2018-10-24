@@ -31,10 +31,10 @@ class ConfigProvider
     {
         return [
             'factories' => [
-
+                // ...
             ],
             'aliases' => [
-
+                // ...
             ]
         ];
     }
