@@ -24,7 +24,8 @@
     }
   },
   "require": {
-    "msbios/msbios": "^1.0"
+    "msbios/msbios": "^1.0",
+    "zendframework/zend-validator": "^2.10"
   },
   "require-dev": {
     "msbios/test": "^1.0"
