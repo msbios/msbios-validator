@@ -1,0 +1,48 @@
+{
+  "name": "msbios/validator",
+  "description": "MSBios Validator",
+  "license": "MIT",
+  "keywords": [
+    "php"
+  ],
+  "homepage": "https://github.com/msbios/msbios-validator",
+  "minimum-stability": "stable",
+  "authors": [
+    {
+      "name": "Judzhin Miles",
+      "email": "info@msbios.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "MSBios\\Validator\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MSBiosTest\\Validator\\": "tests/"
+    }
+  },
+  "require": {
+    "msbios/msbios": "^1.0"
+  },
+  "require-dev": {
+    "msbios/test": "^1.0"
+  },
+  "scripts": {
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
+    "test": [
+      "@cs-check",
+      "phpunit --colors=always"
+    ],
+    "test-coverage": "phpunit --colors=always --coverage-clover clover.xml",
+    "upload-coverage": "coveralls -v",
+    "commit": "git add . && git commit -a -m \"Lazy Composer Commiter\" && git push"
+  },
+  "extra": {
+    "zf": {
+      "component": "MSBios\\Validator"
+    }
+  }
+}
