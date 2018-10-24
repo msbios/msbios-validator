@@ -14,24 +14,42 @@ use Zend\Validator\Exception;
  */
 class GoogleReCaptcha extends AbstractValidator
 {
-    /**
-     * @var string
-     */
-    protected $secret;
+
+    /** @const CAPTCHA_IS_INVALID */
+    const CAPTCHA_IS_INVALID = 'captchaIsInvalid';
 
     /**
-     * @var
+     * Validation failure message template definitions
+     *
+     * @var array
      */
-    protected $url;
+    protected $messageTemplates = [
+        self::CAPTCHA_IS_INVALID => "Captcha is invalid"
+    ];
 
     /**
-     * GoogleReCaptcha constructor.
-     * @param array $options
+     * Options for the between validator
+     *
+     * @var array
      */
-    public function __construct(array $options)
+    protected $options = [
+        'secret' => null,
+    ];
+
+    /**
+     * @param $secret
+     */
+    public function setSecret($secret)
     {
-        $this->url = $options['url'];
-        $this->secret = $options['secret'];
+        $this->options['secret'] = $secret;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSecret()
+    {
+        return $this->options['secret'];
     }
 
     /**
@@ -53,7 +71,7 @@ class GoogleReCaptcha extends AbstractValidator
 
         /** @var array $params */
         $params = [
-            'secret' => $this->secret,
+            'secret' => $this->getSecret(),
             'response' => $value,
         ];
 
@@ -68,6 +86,11 @@ class GoogleReCaptcha extends AbstractValidator
         $result = json_decode(curl_exec($ch), true);
         curl_close($ch);
 
-        return empty($result['success']) ? false : (bool) $result['success'];
+        if (empty($result['success']) || !$result['success']) {
+            $this->error(self::CAPTCHA_IS_INVALID);
+            return false;
+        }
+
+        return true;
     }
 }
